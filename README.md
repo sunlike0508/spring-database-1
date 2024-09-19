@@ -221,5 +221,7 @@ int executeUpdate() throws SQLException;
 
 `rs.getInt("money")` : 현재 커서가 가리키고 있는 위치의 `money` 데이터를 `int` 타입으로 반환한다.
 
+<img width="712" alt="Screenshot 2024-09-19 at 22 59 31" src="https://github.com/user-attachments/assets/2038f6a1-a388-4f45-ae0e-97314d9cfdb0">
+
 
 
