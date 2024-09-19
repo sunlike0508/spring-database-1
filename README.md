@@ -6,6 +6,8 @@ Java DataBase Connectivity
 
 그래서 이를 하나로 추상화 시키기 위해 JDBC가 만들어졌다. 
 
+<img width="706" alt="Screenshot 2024-09-19 at 21 50 10" src="https://github.com/user-attachments/assets/7f58a6d3-25ef-431b-ad3c-5a175b140ae3">
+
 대표적으로 다음 3가지 기능을 표준 인터페이스로 정의해서 제공한다. 
 
 `java.sql.Connection` - 연결
@@ -24,8 +26,7 @@ Java DataBase Connectivity
 
 예를 들어서 MySQL DB에 접근 할 수 있는 것은 MySQL JDBC 드라이버라 하고, Oracle DB에 접근할 수 있는 것은 Oracle JDBC 드라이버라 한다.
 
-
-
+<img width="718" alt="Screenshot 2024-09-19 at 21 51 10" src="https://github.com/user-attachments/assets/4c54c62e-8ba5-40ee-9129-62025052d237">
 
 **정리**
 
@@ -56,8 +57,9 @@ ANSI SQL이라는 표준이 있기는 하지만 일반적인 부분만 공통화
 
 최초 JDBC 직접 사용했다 그러나 그 이후 개선된 기술로 SQL Mapper와 ORM 기술을 사용한다.
 
-
 ### SQL Mapper
+
+<img width="711" alt="Screenshot 2024-09-19 at 21 58 32" src="https://github.com/user-attachments/assets/c0a47cf3-775e-49af-91bb-df1fffe5983f">
 
 대표 기술: 스프링 JdbcTemplate, MyBatis
 
@@ -75,7 +77,7 @@ JDBC의 반복 코드를 제거해준다.
 
 ### ORM 기술
 
-
+<img width="691" alt="Screenshot 2024-09-19 at 21 58 37" src="https://github.com/user-attachments/assets/e135737a-c45b-49ce-aaac-c9eb1aac41aa">
 
 대표 기술: JPA, 하이버네이트, 이클립스링크
 
