@@ -1,8 +1,10 @@
 package hello.jdbc.repository;
 
 import java.sql.SQLException;
+import java.util.NoSuchElementException;
 import hello.jdbc.domain.Member;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import org.junit.jupiter.api.Test;
 
 class MemberRepositoryV0Test {
@@ -12,17 +14,25 @@ class MemberRepositoryV0Test {
 
     @Test
     void save() throws SQLException {
+        String memberID = "memberV5";
 
-        Member member = new Member("memberV0", 10000);
+        Member member = new Member(memberID, 10000);
 
         memberRepository.save(member);
-    }
 
+        Member findMember = memberRepository.findById(memberID);
 
-    @Test
-    void find() throws SQLException {
-        Member member = memberRepository.findById("memberV0");
+        assertThat(member).isNotSameAs(findMember);
+        assertThat(member).isEqualTo(findMember);
 
-        assertThat(member.getMemberId()).isEqualTo("memberV0");
+        memberRepository.update(member.getMemberId(), 20000);
+
+        Member updateMember = memberRepository.findById(memberID);
+
+        assertThat(updateMember.getMoney()).isEqualTo(20000);
+
+        memberRepository.delete(member.getMemberId());
+
+        assertThatThrownBy(() -> memberRepository.findById(memberID)).isInstanceOf(NoSuchElementException.class);
     }
 }
