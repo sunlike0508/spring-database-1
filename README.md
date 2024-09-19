@@ -120,11 +120,15 @@ ORM 기술은 SQL 자체를 작성하지 않아도 되어서 개발 생산성이
 
 ### JDBC 커넥션 인터페이스와 구현
 
+<img width="702" alt="Screenshot 2024-09-19 at 22 16 44" src="https://github.com/user-attachments/assets/7a8c170a-02c9-4796-8180-c64d0a880d78">
+
 JDBC는 `java.sql.Connection` 표준 커넥션 인터페이스를 정의한다.
 
 H2 데이터베이스 드라이버는 JDBC Connection 인터페이스를 구현한 `org.h2.jdbc.JdbcConnection` 구현체를 제공한다.
 
 ### DriverManager 커넥션 요청 흐름
+
+<img width="702" alt="Screenshot 2024-09-19 at 22 14 12" src="https://github.com/user-attachments/assets/4aae0a08-2d44-4b70-8c8c-c14edcdaab73">
 
 JDBC가 제공하는 `DriverManager` 는 라이브러리에 등록된 DB 드라이버들을 관리하고, 커넥션을 획득하는 기능을 제공한다.
 
