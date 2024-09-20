@@ -226,6 +226,7 @@ int executeUpdate() throws SQLException;
 # 커넥션풀과 데이터소스 이해
 
 ## 커넥션풀
+<img width="916" alt="Screenshot 2024-09-20 at 22 33 56" src="https://github.com/user-attachments/assets/a2e2b58e-9a48-4261-8eb3-218cd03feea4">
 
 데이터베이스 커넥션을 획득할 때는 다음과 같은 복잡한 과정을 거친다.
 
@@ -245,7 +246,7 @@ DB는 물론이고 애플리케이션 서버에서도 `TCP/IP` 커넥션을 새�
 
 이것은 사용자에게 좋지 않은 경험을 줄 수 있다.
 
-**참고**:
+**참고**
 
 데이터베이스마다 커넥션을 생성하는 시간은 다르다.
 
@@ -256,6 +257,9 @@ DB는 물론이고 애플리케이션 서버에서도 `TCP/IP` 커넥션을 새�
 이런 문제를 한번에 해결하는 아이디어가 바로 커넥션을 미리 생성해두고 사용하는 커넥션 풀이라는 방법이다.
 
 커넥션 풀은 이름 그대로 커넥션을 관리하는 풀(수영장 풀을 상상하면 된다.)이다.
+
+<img width="924" alt="Screenshot 2024-09-20 at 22 34 05" src="https://github.com/user-attachments/assets/8a98474c-adec-4fff-8030-fa975b18afdd">
+
 
 ### 커넥션 풀 초기화
 
@@ -322,6 +326,11 @@ DB는 물론이고 애플리케이션 서버에서도 `TCP/IP` 커넥션을 새�
 의존관계가 `DriverManager` 에서 `HikariCP` 로 변경되기 때문이다. 물론 둘의 사용법도 조금씩 다를 것이다.
 
 ### 커넥션을 획득하는 방법을 추상화
+
+<img width="923" alt="Screenshot 2024-09-20 at 22 41 34" src="https://github.com/user-attachments/assets/550a9790-4a5b-4ad3-949e-a2e3c19acdad">
+<img width="916" alt="Screenshot 2024-09-20 at 22 40 06" src="https://github.com/user-attachments/assets/01322a58-ca42-40ed-a837-f0a1b21ed645">
+<img width="928" alt="Screenshot 2024-09-20 at 22 39 58" src="https://github.com/user-attachments/assets/7854d47c-aaff-4824-8f83-6576db1bef3d">
+
 
 자바에서는 이런 문제를 해결하기 위해 `javax.sql.DataSource` 라는 인터페이스를 제공한다.
 
