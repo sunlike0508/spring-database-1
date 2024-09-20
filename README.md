@@ -226,6 +226,7 @@ int executeUpdate() throws SQLException;
 # 커넥션풀과 데이터소스 이해
 
 ## 커넥션풀
+
 <img width="916" alt="Screenshot 2024-09-20 at 22 33 56" src="https://github.com/user-attachments/assets/a2e2b58e-9a48-4261-8eb3-218cd03feea4">
 
 데이터베이스 커넥션을 획득할 때는 다음과 같은 복잡한 과정을 거친다.
@@ -259,7 +260,6 @@ DB는 물론이고 애플리케이션 서버에서도 `TCP/IP` 커넥션을 새�
 커넥션 풀은 이름 그대로 커넥션을 관리하는 풀(수영장 풀을 상상하면 된다.)이다.
 
 <img width="924" alt="Screenshot 2024-09-20 at 22 34 05" src="https://github.com/user-attachments/assets/8a98474c-adec-4fff-8030-fa975b18afdd">
-
 
 ### 커넥션 풀 초기화
 
@@ -327,10 +327,11 @@ DB는 물론이고 애플리케이션 서버에서도 `TCP/IP` 커넥션을 새�
 
 ### 커넥션을 획득하는 방법을 추상화
 
-<img width="923" alt="Screenshot 2024-09-20 at 22 41 34" src="https://github.com/user-attachments/assets/550a9790-4a5b-4ad3-949e-a2e3c19acdad">
-<img width="916" alt="Screenshot 2024-09-20 at 22 40 06" src="https://github.com/user-attachments/assets/01322a58-ca42-40ed-a837-f0a1b21ed645">
 <img width="928" alt="Screenshot 2024-09-20 at 22 39 58" src="https://github.com/user-attachments/assets/7854d47c-aaff-4824-8f83-6576db1bef3d">
 
+<img width="916" alt="Screenshot 2024-09-20 at 22 40 06" src="https://github.com/user-attachments/assets/01322a58-ca42-40ed-a837-f0a1b21ed645">
+
+<img width="923" alt="Screenshot 2024-09-20 at 22 41 34" src="https://github.com/user-attachments/assets/550a9790-4a5b-4ad3-949e-a2e3c19acdad">
 
 자바에서는 이런 문제를 해결하기 위해 `javax.sql.DataSource` 라는 인터페이스를 제공한다.
 
@@ -358,7 +359,7 @@ public interface DataSource {
 
 `DriverManager` 는 `DataSource` 인터페이스를 사용하지 않는다.
 
-따라서 `DriverManager` 는 직접 사용해 야 한다.
+따라서 `DriverManager` 는 직접 사용해야 한다.
 
 따라서 `DriverManager` 를 사용하다가 `DataSource` 기반의 커넥션 풀을 사용하도록 변경하면 관련 코드를 다 고쳐야 한다.
 
@@ -369,7 +370,99 @@ public interface DataSource {
 
 이제 애플리케이션 로직은 `DataSource` 인터페이스에만 의존하면 된다.
 
-덕분에 `DriverManagerDataSource` 를 통해서 `DriverManager` 를 사용 하다가 커넥션 풀을 사용하도록 코드를 변경해도 애플리케이션 로직은 변경하지 않아도 된다.
+덕분에 `DriverManagerDataSource` 를 통해서 `DriverManager` 를 사용하다가 커넥션 풀을 사용하도록 코드를 변경해도 애플리케이션 로직은 변경하지 않아도 된다.
+
+### DriverManager 와 DriverManagerDataSource 차이
+
+**파라미터 차이**
+
+기존 `DriverManager` 를 통해서 커넥션을 획득하는 방법과 `DataSource` 를 통해서 커넥션을 획득하는 방법에는 큰 차이가 있다.
+
+```java
+void dataSourceDriverManager() throws SQLException {
+    Connection con1 = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+    Connection con2 = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+
+    DriverManagerDataSource dataSource = new DriverManagerDataSource(URL, USERNAME, PASSWORD);
+    Connection con1 = dataSource.getConnection();
+    Connection con2 = dataSource.getConnection();
+}
+
+```
+
+`DriverManager` 는 커넥션을 획득할 때 마다 `URL` , `USERNAME` , `PASSWORD` 같은 파라미터를 계속 전달해야 한다.
+
+반면에 `DataSource` 를 사용하는 방식은 처음 객체를 생성할 때만 필요한 파리미터를 넘겨두고, 커넥션을 획득할 때는 단순히 `dataSource.getConnection()` 만 호출하면 된다.
+
+**설정과 사용의 분리**
+
+**설정**: `DataSource` 를 만들고 필요한 속성들을 사용해서 `URL` , `USERNAME` , `PASSWORD` 같은 부분을 입력하는 것을 말한다. 이렇게 설정과 관련된 속성들은 한 곳에 있는 것이
+향후 변경에 더 유연하게 대처할 수 있다.
+
+**사용**: 설정은 신경쓰지 않고, `DataSource` 의 `getConnection()` 만 호출해서 사용하면 된다.
+
+**설정과 사용의 분리 설명**
+
+이 부분이 작아보이지만 큰 차이를 만들어내는데, 필요한 데이터를 `DataSource` 가 만들어지는 시점에 미리 다 넣어두게 되면, `DataSource` 를 사용하는 곳에서는
+`dataSource.getConnection()` 만 호출하면 되므로, `URL` , `USERNAME` , `PASSWORD` 같은 속성들에 의존하지 않아도 된다.
+
+그냥 `DataSource` 만 주입받아서 `getConnection()` 만 호출하면 된다.
+
+쉽게 이야기해서 리포지토리(Repository)는 `DataSource` 만 의존하고, 이런 속성을 몰라도 된다.
+
+애플리케이션을 개발해보면 보통 설정은 한 곳에서 하지만, 사용은 수 많은 곳에서 하게 된다.
+
+덕분에 객체를 설정하는 부분과, 사용하는 부분을 좀 더 명확하게 분리할 수 있다.
+
+### 커넥션 풀 연결
+
+```java
+
+@Test
+void dataSourceConnectionPool() throws SQLException, InterruptedException {
+    //커넥션 풀링: HikariProxyConnection(Proxy) -> JdbcConnection(Target) 
+    HikariDataSource dataSource = new HikariDataSource();
+    dataSource.setJdbcUrl(URL);
+    dataSource.setUsername(USERNAME);
+    dataSource.setPassword(PASSWORD);
+    dataSource.setMaximumPoolSize(10);
+    dataSource.setPoolName("MyPool");
+
+    Connection con1 = dataSource.getConnection();
+    Connection con2 = dataSource.getConnection();
+}
+```
+
+**HikariConfig**
+
+`HikariCP` 관련 설정을 확인할 수 있다. 풀의 이름( `MyPool` )과 최대 풀 수( `10` )을 확인할 수 있다.
+
+**MyPool connection adder**
+별도의 쓰레드 사용해서 커넥션 풀에 커넥션을 채우고 있는 것을 확인할 수 있다.
+
+이 쓰레드는 커넥션 풀에 커넥션을 최 대 풀 수( `10` )까지 채운다.
+
+그렇다면 왜 별도의 쓰레드를 사용해서 커넥션 풀에 커넥션을 채우는 것일까?
+
+커넥션 풀에 커넥션을 채우는 것은 상대적으로 오래 걸리는 일이다.
+
+애플리케이션을 실행할 때 커넥션 풀을 채울 때 까지 마냥 대기하고 있다면 애플리케이션 실행 시간이 늦어진다.
+
+따라서 이렇게 별도의 쓰레드를 사용해서 커넥션 풀을 채워야 애플리케이션 실행 시간에 영향을 주지 않는다.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
