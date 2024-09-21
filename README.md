@@ -546,6 +546,8 @@ void dataSourceConnectionPool() throws SQLException, InterruptedException {
 
 **비즈니스 로직과 트랜잭션**
 
+<img width="704" alt="Screenshot 2024-09-21 at 23 14 41" src="https://github.com/user-attachments/assets/eed2cd11-c501-4338-bc34-cc6c2332fdf4">
+
 트랜잭션은 비즈니스 로직이 있는 서비스 계층에서 시작해야 한다.
 
 비즈니스 로직이 잘못되면 해당 비즈니스 로직 으로 인해 문제가 되는 부분을 함께 롤백해야 하기 때문이다.
@@ -560,7 +562,9 @@ void dataSourceConnectionPool() throws SQLException, InterruptedException {
 
 **커넥션과 세션**
 
-애플리케이션에서 같은 커넥션을 유지하려면 어떻게 해야할까? 가장 단순한 방법은 커넥션을 파라미터로 전달해서 같 은 커넥션이 사용되도록 유지하는 것이다.
+<img width="692" alt="Screenshot 2024-09-21 at 23 14 45" src="https://github.com/user-attachments/assets/c80c7a3a-db42-4578-9d5e-21ce2a751dc0">
+
+애플리케이션에서 같은 커넥션을 유지하려면 어떻게 해야할까? 가장 단순한 방법은 커넥션을 파라미터로 전달해서 같은 커넥션이 사용되도록 유지하는 것이다.
 
 
 
