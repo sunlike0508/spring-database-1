@@ -481,6 +481,9 @@ void dataSourceConnectionPool() throws SQLException, InterruptedException {
 
 ## 데이터베이스 연결 구조와 DB 세션
 
+<img width="699" alt="Screenshot 2024-09-21 at 21 59 12" src="https://github.com/user-attachments/assets/68af8446-2fa9-4c6e-a6a8-1c3c62fa7552">
+
+
 사용자는 웹 애플리케이션 서버(WAS)나 DB 접근 툴 같은 클라이언트를 사용해서 데이터베이스 서버에 접근할 수 있다.
 
 클라이언트는 데이터베이스 서버에 연결을 요청하고 커넥션을 맺게 된다.
