@@ -648,7 +648,11 @@ public static void main(String[] args) {
 이렇게 JDBC 기술을 사용하다가 JPA 기술로 변경하게 되면 서비스 계층의 코드도 JPA 기술을 사용하도록 함께 수정해야 한다.
 
 **트랜잭션 추상화**
+
+<img width="932" alt="Screenshot 2024-09-23 at 22 20 56" src="https://github.com/user-attachments/assets/405e6d1a-f0bb-4f33-a408-31fd77cb05f8">
+
 이 문제를 해결하려면 트랜잭션 기능을 추상화하면 된다.
+
 아주 단순하게 생각하면 다음과 같은 인터페이스를 만들어서 사용하면 된다.
 
 ```java
@@ -681,6 +685,8 @@ JPA 트랜잭션 기능으로 변경해야 하면 `JpaTxManager` 를 주입하�
 이제 트랜잭션 을 사용하는 서비스 코드를 전혀 변경하지 않고, 트랜잭션 기술을 마음껏 변경할 수 있다.
 
 **스프링의 트랜잭션 추상화**
+
+<img width="916" alt="Screenshot 2024-09-23 at 22 21 46" src="https://github.com/user-attachments/assets/0e20a815-4dd8-4ead-9800-91231dd208f9">
 
 스프링은 이미 이런 고민을 다 해두었다.
 
