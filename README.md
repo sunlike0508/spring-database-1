@@ -747,7 +747,11 @@ public interface PlatformTransactionManager extends TransactionManager {
 
 **커넥션과 세션**
 
+<img width="925" alt="Screenshot 2024-09-23 at 22 30 04" src="https://github.com/user-attachments/assets/8713c4d4-05d6-4481-94c5-c6481d8edada">
+
 **트랜잭션 매니저와 트랜잭션 동기화 매니저**
+
+<img width="921" alt="Screenshot 2024-09-23 at 22 30 33" src="https://github.com/user-attachments/assets/88011485-2612-4328-ab91-6482232dc2de">
 
 스프링은 **트랜잭션 동기화 매니저**를 제공한다.
 
@@ -767,7 +771,6 @@ public interface PlatformTransactionManager extends TransactionManager {
 4. 트랜잭션이 종료되면 트랜잭션 매니저는 트랜잭션 동기화 매니저에 보관된 커넥션을 통해 트랜잭션을 종료하고, 커넥션도 닫는다.
 
 **트랜잭션 동기화 매니저**
-
 다음 트랜잭션 동기화 매니저 클래스를 열어보면 쓰레드 로컬을 사용하는 것을 확인할 수 있다.
 
 `org.springframework.transaction.support.TransactionSynchronizationManager`
