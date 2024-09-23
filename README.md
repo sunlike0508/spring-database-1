@@ -831,7 +831,7 @@ public interface PlatformTransactionManager extends TransactionManager {
 
 **트랜잭션 매니저3 - 트랜잭션 종료**
 
-![Uploading Screenshot 2024-09-23 at 22.57.31.png…]()
+<img width="934" alt="Screenshot 2024-09-23 at 22 57 31" src="https://github.com/user-attachments/assets/785e964e-c6eb-479f-b650-8deebe850316">
 
 9. 비즈니스 로직이 끝나고 트랜잭션을 종료한다. 트랜잭션은 커밋하거나 롤백하면 종료된다.
 10. 트랜잭션을 종료하려면 동기화된 커넥션이 필요하다. 트랜잭션 동기화 매니저를 통해 동기화된 커넥션을 획득한다.
