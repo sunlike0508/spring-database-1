@@ -809,6 +809,8 @@ public interface PlatformTransactionManager extends TransactionManager {
 
 **트랜잭션 매니저1 - 트랜잭션 시작**
 
+<img width="926" alt="Screenshot 2024-09-23 at 22 56 03" src="https://github.com/user-attachments/assets/801547e0-c983-41c3-be95-b4b49380fe9a">
+
 클라이언트의 요청으로 서비스 로직을 실행한다.
 
 1. 서비스 계층에서 `transactionManager.getTransaction()` 을 호출해서 트랜잭션을 시작한다.
@@ -819,6 +821,8 @@ public interface PlatformTransactionManager extends TransactionManager {
 
 **트랜잭션 매니저2 - 로직 실행**
 
+<img width="915" alt="Screenshot 2024-09-23 at 22 56 36" src="https://github.com/user-attachments/assets/03451022-6cc3-4bf5-b83f-0bba71391b9d">
+
 서비스는 비즈니스 로직을 실행하면서 리포지토리의 메서드들을 호출한다. 이때 커넥션을 파라미터로 전달하지 않는다.
 
 7. 리포지토리 메서드들은 트랜잭션이 시작된 커넥션이 필요하다. 리포지토리는 `DataSourceUtils.getConnection()` 을 사용해서 트랜잭션 동기화 매니저에 보관된 커넥션을 꺼내서 사용한다. 이
@@ -826,6 +830,8 @@ public interface PlatformTransactionManager extends TransactionManager {
 8. 획득한 커넥션을 사용해서 SQL을 데이터베이스에 전달해서 실행한다.
 
 **트랜잭션 매니저3 - 트랜잭션 종료**
+
+![Uploading Screenshot 2024-09-23 at 22.57.31.png…]()
 
 9. 비즈니스 로직이 끝나고 트랜잭션을 종료한다. 트랜잭션은 커밋하거나 롤백하면 종료된다.
 10. 트랜잭션을 종료하려면 동기화된 커넥션이 필요하다. 트랜잭션 동기화 매니저를 통해 동기화된 커넥션을 획득한다.
