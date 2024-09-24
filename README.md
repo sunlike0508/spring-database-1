@@ -924,6 +924,10 @@ public class TransactionTemplate {
 
 이럴 때 스프링 AOP를 통해 프록시를 도입하면 문제를 깔끔하게 해결할 수 있다.
 
+<img width="913" alt="Screenshot 2024-09-24 at 21 53 58" src="https://github.com/user-attachments/assets/bb0afb6c-98cb-4e58-90ff-148f453504fd">
+<img width="921" alt="Screenshot 2024-09-24 at 21 54 04" src="https://github.com/user-attachments/assets/e4ec3b4c-a0b6-4627-acb0-d82f64eec8c5">
+
+
 **트랜잭션 프록시 코드 예시**
 
 ```java
