@@ -916,4 +916,55 @@ public class TransactionTemplate {
 
 어떻게 하면 이 문제를 해결할 수 있을까?
 
+### 트랜잭션 문제 해결 - AOP
+
+트랜잭션 템플릿 덕분에 트랜잭션을 처리하는 반복 코드는 해결할 수 있었다.
+
+하지만 서비스 계층에 순수한 비즈 니스 로직만 남긴다는 목표는 아직 달성하지 못했다.
+
+이럴 때 스프링 AOP를 통해 프록시를 도입하면 문제를 깔끔하게 해결할 수 있다.
+
+**트랜잭션 프록시 코드 예시**
+
+```java
+ public class TransactionProxy {
+
+    private MemberService target;
+
+
+    public void logic() { //트랜잭션 시작
+        TransactionStatus status = transactionManager.getTransaction();
+        
+        try {
+            //실제 대상 호출
+            target.logic();
+            transactionManager.commit(status); //성공시 커밋
+        } catch(Exception e) {
+            transactionManager.rollback(status); //실패시 롤백 
+            // throw new IllegalStateException(e);
+        }
+    }
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
