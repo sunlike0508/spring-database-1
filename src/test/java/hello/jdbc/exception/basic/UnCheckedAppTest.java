@@ -17,6 +17,19 @@ class UnCheckedAppTest {
     }
 
 
+    @Test
+    void printEx() {
+        Controller controller = new Controller();
+
+        try {
+            controller.request();
+        } catch(Exception e) {
+            //e.printStackTrace();
+            log.error("ex={},{}", e.getMessage(), e.getLocalizedMessage(), e);
+        }
+    }
+
+
     static class Controller {
 
         Service service = new Service();
@@ -48,7 +61,8 @@ class UnCheckedAppTest {
             try {
                 run();
             } catch(ConnectException e) {
-                throw new RuntimeConnectException(e.getMessage());
+                //throw new RuntimeConnectException();
+                throw new RuntimeConnectException(e);
             }
         }
 
@@ -86,8 +100,12 @@ class UnCheckedAppTest {
 
     static class RuntimeConnectException extends RuntimeException {
 
-        public RuntimeConnectException(String message) {
-            super(message);
+        public RuntimeConnectException() {
+        }
+
+
+        public RuntimeConnectException(Throwable e) {
+            super(e);
         }
     }
 }
