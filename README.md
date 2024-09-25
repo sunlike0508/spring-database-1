@@ -1359,6 +1359,8 @@ void method() throws Exception {}
 
 **런타임 예외 구현 기술 변경시 파급 효과**
 
+<img width="687" alt="Screenshot 2024-09-25 at 23 27 44" src="https://github.com/user-attachments/assets/aec5b4aa-ad42-45de-9710-a41b027b1894">
+
 런타임 예외를 사용하면 중간에 기술이 변경되어도 해당 예외를 사용하지 않는 컨트롤러, 서비스에서는 코드를 변 경하지 않아도 된다.
 
 구현 기술이 변경되는 경우, 예외를 공통으로 처리하는 곳에서는 예외에 따른 다른 처리가 필요할 수 있다.
