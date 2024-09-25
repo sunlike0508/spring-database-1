@@ -1101,6 +1101,8 @@ static class TestConfig {
 
 ## 예외
 
+<img width="938" alt="Screenshot 2024-09-25 at 22 31 36" src="https://github.com/user-attachments/assets/0d34c5aa-83af-4d48-a0e8-e4f3310ce791">
+
 * `Object` : 예외도 객체이다. 모든 객체의 최상위 부모는 `Object` 이므로 예외의 최상위 부모도 `Object` 이다.
 * `Throwable` : 최상위 예외이다. 하위에 `Exception` 과 `Error` 가 있다.
 * `Error` : 메모리 부족이나 심각한 시스템 오류와 같이 애플리케이션에서 복구 불가능한 시스템 예외이다. 애플리케이션 개발자는 이 예외를 잡으려고 해서는 안된다.
@@ -1114,6 +1116,8 @@ static class TestConfig {
     * `RuntimeException` 의 이름을 따라서 `RuntimeException` 과 그 하위 언체크 예외를 **런타임 예외**라고 많이 부른다. 여기서도 앞으로는 런타임 예외로 종종 부르겠다.
 
 ### 예외 기본 규칙
+
+<img width="931" alt="Screenshot 2024-09-25 at 22 35 58" src="https://github.com/user-attachments/assets/44c8a319-8204-4257-908f-e05dc701a680">
 
 **예외에 대해서는 2가지 기본 규칙을 기억하자.**
 
