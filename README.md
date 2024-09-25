@@ -1337,6 +1337,8 @@ void method() throws Exception {..}
 
 ### 언체크 예외 활용
 
+<img width="696" alt="Screenshot 2024-09-25 at 23 18 34" src="https://github.com/user-attachments/assets/88577e4e-2bad-466a-b932-9e836a755081">
+
 `SQLException` 을 런타임 예외인 `RuntimeSQLException` 으로 변환했다.
 `ConnectException` 대신에 `RuntimeConnectException` 을 사용하도록 바꾸었다.
 런타임 예외이기 때문에 서비스, 컨트롤러는 해당 예외들을 처리할 수 없다면 별도의 선언 없이 그냥 두면 된다.
