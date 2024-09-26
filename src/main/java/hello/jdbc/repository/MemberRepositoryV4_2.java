@@ -15,9 +15,7 @@ import org.springframework.jdbc.support.JdbcUtils;
 import org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator;
 import org.springframework.jdbc.support.SQLExceptionTranslator;
 
-/**
- * 트랜잭션 매니저
- */
+
 @Slf4j
 public class MemberRepositoryV4_2 implements MemberRepository {
 

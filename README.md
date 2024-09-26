@@ -1839,13 +1839,95 @@ void exceptionTranslator() {
 
 ### 스프링 예외 추상화 적용
 
+```java
+
+@Slf4j
+public class MemberRepositoryV4_2 implements MemberRepository {
+
+    private final DataSource dataSource;
+    private final SQLExceptionTranslator exTranslator;
 
 
+    public MemberRepositoryV4_2(DataSource dataSource) {
+        this.dataSource = dataSource;
+        this.exTranslator = new SQLErrorCodeSQLExceptionTranslator(dataSource);
+    }
+}
+```
+
+**정리**
+
+드디어 예외에 대한 부분을 깔끔하게 정리했다.
+
+스프링이 예외를 추상화해준 덕분에, 서비스 계층은 특정 리포지토리의 구현 기술과 예외에 종속적이지 않게 되었다.
+
+따라서 서비스 계층은 특정 구현 기술이 변경되어도 그대로 유지할 수 있게 되었다.
+
+다시 DI를 제대로 활용할 수 있게 된 것이다.
+
+추가로 서비스 계층에서 예외를 잡아서 복구해야 하는 경우, 예외가 스프링이 제공하는 데이터 접근 예외로 변경되어서 서비스 계층에 넘어오기 때문에 필요한 경우 예외를 잡아서 복구하면 된다.
+
+### JDBC 반복 문제 해결 - JdbcTemplate
+
+지금까지 서비스 계층의 순수함을 유지하기 위해 수 많은 노력을 했고, 덕분에 서비스 계층의 순수함을 유지하게 되었다.
+
+이번에는 리포지토리에서 JDBC를 사용하기 때문에 발생하는 반복 문제를 해결해보자.
+
+**JDBC 반복 문제**
+
+* 커넥션 조회, 커넥션 동기화
+* `PreparedStatement` 생성 및 파라미터 바인딩 쿼리 실행
+* 결과 바인딩
+* 예외 발생시 스프링 예외 변환기 실행
+* 리소스 종료
+
+리포지토리의 각각의 메서드를 살펴보면 상당히 많은 부분이 반복된다.
+
+이런 반복을 효과적으로 처리하는 방법이 바로 템플릿 콜백 패턴이다.
+
+스프링은 JDBC의 반복 문제를 해결하기 위해 `JdbcTemplate` 이라는 템플릿을 제공한다.
+
+`JdbcTemplate` 에 대한 자세한 사용법은 뒤에서 설명하겠다.
+
+지금은 전체 구조와, 이 기능을 사용해서 반복 코드를 제거할 수 있다는 것에 초점을 맞추자.
+
+```java
+
+@Slf4j
+public class MemberRepositoryV5 implements MemberRepository {
+
+    private final JdbcTemplate template;
 
 
+    public MemberRepositoryV5(DataSource dataSource) {
+        template = new JdbcTemplate(dataSource);
+    }
 
 
+    @Override
+    public Member save(Member member) {
+        String sql = "insert into member(member_id, money) values(?, ?)";
+        template.update(sql, member.getMemberId(), member.getMoney());
+        return member;
+    }
+}
+```
 
+`JdbcTemplate` 은 JDBC로 개발할 때 발생하는 반복을 대부분 해결해준다.
+
+그 뿐만 아니라 지금까지 학습했던, **트랜 잭션을 위한 커넥션 동기화**는 물론이고, 예외 발생시 **스프링 예외 변환기**도 자동으로 실행해준다.
+
+**정리**
+
+서비스 계층의 순수성
+
+트랜잭션 추상화 + 트랜잭션 AOP 덕분에 서비스 계층의 순수성을 최대한 유지하면서 서비스 계층에서 트랜잭션을 사용할 수 있다.
+
+스프링이 제공하는 예외 추상화와 예외 변환기 덕분에, 데이터 접근 기술이 변경되어도 서비스 계층의 순수성을 유지하면서 예외도 사용할 수 있다.
+
+서비스 계층이 리포지토리 인터페이스에 의존한 덕분에 향후 리포지토리가 다른 구현 기술로 변경되어도 서비스 계층을 순수하게 유지할 수 있다.
+
+리포지토리에서 JDBC를 사용하는 반복 코드가 `JdbcTemplate` 으로 대부분 제거되었다.
 
 
 
