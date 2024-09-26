@@ -1519,6 +1519,8 @@ public void call() {
 
 이렇게 하면 서비스 계층이 해당 예외를 무시할 수 있기 때문에, 특정 구현기술에 의존하는 부분을 제거하 고 서비스 계층을 순수하게 유지할 수 있다.
 
+<img width="922" alt="Screenshot 2024-09-26 at 22 56 40" src="https://github.com/user-attachments/assets/aec3bed8-07cf-4fdd-b124-d61b33fb988b">
+
 이렇게 인터페이스를 도입하면 `MemberService` 는 `MemberRepository` 인터페이스에만 의존하면 된다.
 
 이제 구현 기술을 변경하고 싶으면 DI를 사용해서 `MemberService` 코드의 변경 없이 구현 기술을 변경할 수 있다.
