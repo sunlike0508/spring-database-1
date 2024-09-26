@@ -1709,7 +1709,7 @@ MySQL: `1062`
 
 스프링은 앞서 설명한 문제들을 해결하기 위해 데이터 접근과 관련된 예외를 추상화해서 제공한다.
 
-![Uploading Screenshot 2024-09-26 at 23.42.11.png…]()
+<img width="692" alt="Screenshot 2024-09-26 at 23 42 11" src="https://github.com/user-attachments/assets/62906938-99e5-4ed1-8dbf-64c00a7a591e">
 
 스프링은 데이터 접근 계층에 대한 수십 가지 예외를 정리해서 일관된 예외 계층을 제공한다.
 
