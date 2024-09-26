@@ -1636,6 +1636,8 @@ ID를 `hello` 라고 가입 시도 했는데, 이미 같은 아이디가 있으�
 
 그리고 `SQLException` 에는 데이터베이스가 제공 하는 `errorCode` 라는 것이 들어있다.
 
+<img width="942" alt="Screenshot 2024-09-26 at 23 22 39" src="https://github.com/user-attachments/assets/56554798-1728-421d-b726-f98f17b4c6ac">
+
 **H2 데이터베이스의 키 중복 오류 코드**
 
 ```
