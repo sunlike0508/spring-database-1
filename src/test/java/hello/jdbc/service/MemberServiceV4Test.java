@@ -2,7 +2,8 @@ package hello.jdbc.service;
 
 import javax.sql.DataSource;
 import hello.jdbc.domain.Member;
-import hello.jdbc.repository.MemberRepositoryV4_1;
+import hello.jdbc.repository.MemberRepository;
+import hello.jdbc.repository.MemberRepositoryV4_2;
 import lombok.extern.slf4j.Slf4j;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -24,7 +25,7 @@ class MemberServiceV4Test {
     @Autowired
     private MemberServiceV4 memberService;
     @Autowired
-    private MemberRepositoryV4_1 memberRepository;
+    private MemberRepository memberRepository;
 
 
     @Test
@@ -71,7 +72,8 @@ class MemberServiceV4Test {
         log.info("memberService = {}", memberService.getClass());
         log.info("memberRepository = {}", memberRepository.getClass());
 
-        assertThat(AopUtils.isAopProxy(memberRepository)).isTrue();
+        assertThat(AopUtils.isAopProxy(memberService)).isTrue();
+        assertThat(AopUtils.isAopProxy(memberRepository)).isFalse();
     }
 
 
@@ -95,8 +97,8 @@ class MemberServiceV4Test {
 
 
         @Bean
-        MemberRepositoryV4_1 memberRepository() {
-            return new MemberRepositoryV4_1(dataSource);
+        MemberRepository memberRepository() {
+            return new MemberRepositoryV4_2(dataSource);
         }
 
 

@@ -72,7 +72,7 @@ class MemberServiceV3_4Test {
         log.info("memberService = {}", memberService.getClass());
         log.info("memberRepository = {}", memberRepository.getClass());
 
-        assertThat(AopUtils.isAopProxy(memberRepository)).isTrue();
+        assertThat(AopUtils.isAopProxy(memberRepository)).isFalse();
     }
 
 
